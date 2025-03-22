@@ -1,0 +1,13 @@
+import csv
+
+try:
+    with open("employees.csv", "r") as file:
+        reader = csv.reader(file)
+        for row in reader:
+            print(row)
+except FileNotFoundError:
+    print("File not found.")
+except ValueError:
+    print("Invalid data format.")
+except IOError:
+    print("Error reading file.")
