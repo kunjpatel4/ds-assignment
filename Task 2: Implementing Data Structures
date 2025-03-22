@@ -1,0 +1,15 @@
+students = {}
+
+def add_student(name, score):
+    students[name] = score
+
+def get_score(name):
+    return students.get(name, "Student not found")
+
+def delete_student(name):
+    students.pop(name, None)
+
+# Example usage
+add_student("Alice", 90)
+print(get_score("Alice"))  # Output: 90
+delete_student("Alice")
