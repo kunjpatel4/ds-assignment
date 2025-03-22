@@ -80,7 +80,29 @@ with open("news_headlines.txt", "w") as file:
         file.write(headline + "\n")
 print("News headlines saved to news_headlines.txt")
 
-6.  Random Password Generator
+6.  Text-Based Password Manager (Simple Storage)
+
+import requests
+from bs4 import BeautifulSoup
+
+def scrape_news():
+    """Scrapes news headlines from a website"""
+    url = "https://news.ycombinator.com/"  # Example: Hacker News
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text, "html.parser")
+
+    headlines = [title.text for title in soup.select(".titleline a")]
+
+    with open("news_headlines.txt", "w") as file:
+        for headline in headlines:
+            file.write(headline + "\n")
+
+    print("News headlines saved!")
+
+scrape_news()
+
+
+7.  Random Password Generator
 
 import random
 import string
@@ -91,17 +113,77 @@ def generate_password(length=12):
 
 print("Generated Password:", generate_password())
 
-7. Weather Application (Using API)
+8. Weather Application (Using API)
 i used API key from OpenWeather
 
 import requests
 
-API_KEY = "your_openweather_api_key"
+API_KEY = "skdjfhreuiskdd9876567876sdcdcdc"
 city = input("Enter city name: ")
 url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric"
 
 response = requests.get(url).json()
 print(f"Temperature: {response['main']['temp']}°C, Weather: {response['weather'][0]['description']}")
+
+9.  Sentiment Analysis on Customer Reviews
+
+from textblob import TextBlob
+
+def analyze_sentiment(review):
+    """Analyze sentiment of a review"""
+    sentiment = TextBlob(review).sentiment.polarity
+    if sentiment > 0:
+        return "Positive"
+    elif sentiment < 0:
+        return "Negative"
+    else:
+        return "Neutral"
+
+review = input("Enter customer review: ")
+print(f"Sentiment: {analyze_sentiment(review)}")
+
+10.  Python-Based Quiz Game (MCQs)
+
+def quiz():
+    """Simple Quiz Game"""
+    questions = {
+        "What is the capital of France?": "Paris",
+        "What is 5 + 7?": "12",
+        "Who developed Python?": "Guido van Rossum"
+    }
+
+    score = 0
+    for question, answer in questions.items():
+        user_answer = input(question + " ")
+        if user_answer.lower() == answer.lower():
+            print("Correct!")
+            score += 1
+        else:
+            print(f"Wrong! The correct answer is {answer}.")
+
+    print(f"Your final score: {score}/{len(questions)}")
+
+quiz()
+
+11. Python Stopwatch with Lap Times
+
+import time
+
+def stopwatch():
+    """Simple stopwatch with lap times"""
+    input("Press Enter to start the stopwatch...")
+    start_time = time.time()
+    laps = []
+
+    while True:
+        action = input("Press Enter to record lap or 'q' to quit: ")
+        if action.lower() == "q":
+            break
+        lap_time = time.time() - start_time
+        laps.append(lap_time)
+        print(f"Lap {len(laps)}: {lap_time:.2f} seconds")
+
+stopwatch()
 
 
 
