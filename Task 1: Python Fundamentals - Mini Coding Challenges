@@ -1,0 +1,112 @@
+1. Convert temperature from Celsius to Fahrenheit
+def celsius_to_fahrenheit(celsius):
+    return (celsius * 9/5) + 32
+
+celsius = float(input("Enter temperature in Celsius: "))
+print(f"Temperature in Fahrenheit: {celsius_to_fahrenheit(celsius)}")
+
+2. Basic Calculator
+def calculator():
+    num1 = float(input("Enter first number: "))
+    num2 = float(input("Enter second number: "))
+    operation = input("Choose operation (+, -, *, /): ")
+
+    if operation == '+':
+        print("Result:", num1 + num2)
+    elif operation == '-':
+        print("Result:", num1 - num2)
+    elif operation == '*':
+        print("Result:", num1 * num2)
+    elif operation == '/':
+        if num2 != 0:
+            print("Result:", num1 / num2)
+        else:
+            print("Cannot divide by zero!")
+    else:
+        print("Invalid operation!")
+
+calculator()
+
+3.  Check if a number is prime or even/odd
+def is_prime(n):
+    if n < 2:
+        return False
+    for i in range(2, int(n ** 0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+num = int(input("Enter a number: "))
+print(f"{num} is {'even' if num % 2 == 0 else 'odd'}.")
+print(f"{num} is {'prime' if is_prime(num) else 'not prime'}.")
+
+4. To-Do List Application with Data Persistence
+
+def add_task(task):
+    with open("todo.txt", "a") as file:
+        file.write(task + "\n")
+
+def view_tasks():
+    try:
+        with open("todo.txt", "r") as file:
+            tasks = file.readlines()
+            for i, task in enumerate(tasks, 1):
+                print(f"{i}. {task.strip()}")
+    except FileNotFoundError:
+        print("No tasks found.")
+
+print("1. Add task  2. View tasks")
+choice = input("Enter choice: ")
+if choice == "1":
+    task = input("Enter task: ")
+    add_task(task)
+elif choice == "2":
+    view_tasks()
+else:
+    print("Invalid choice!")
+
+5. Web Scraping News Headlines
+
+import requests
+from bs4 import BeautifulSoup
+
+url = "https://www.bbc.com/news"
+response = requests.get(url)
+soup = BeautifulSoup(response.text, "html.parser")
+
+headlines = [h3.text for h3 in soup.find_all("h3")]
+with open("news_headlines.txt", "w") as file:
+    for headline in headlines:
+        file.write(headline + "\n")
+print("News headlines saved to news_headlines.txt")
+
+6.  Random Password Generator
+
+import random
+import string
+
+def generate_password(length=12):
+    characters = string.ascii_letters + string.digits + string.punctuation
+    return ''.join(random.choice(characters) for _ in range(length))
+
+print("Generated Password:", generate_password())
+
+7. Weather Application (Using API)
+i used API key from OpenWeather
+
+import requests
+
+API_KEY = "your_openweather_api_key"
+city = input("Enter city name: ")
+url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric"
+
+response = requests.get(url).json()
+print(f"Temperature: {response['main']['temp']}°C, Weather: {response['weather'][0]['description']}")
+
+
+
+
+
+
+
+
