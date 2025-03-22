@@ -1,13 +1,24 @@
 import csv
 
-try:
-    with open("employees.csv", "r") as file:
-        reader = csv.reader(file)
-        for row in reader:
-            print(row)
-except FileNotFoundError:
-    print("File not found.")
-except ValueError:
-    print("Invalid data format.")
-except IOError:
-    print("Error reading file.")
+def read_employee_data(filename):
+    try:
+        with open(filename, mode='r', encoding='utf-8') as file:
+            reader = csv.reader(file)
+            header = next(reader)
+            print(f"{' | '.join(header)}")
+            print("-" * 50)
+
+            for row in reader:
+                if len(row) != len(header):
+                    raise ValueError("Row has missing or extra values.")
+                print(f"{' | '.join(row)}")
+
+    except FileNotFoundError:
+        print(f"Error: The file '{filename}' was not found.")
+    except ValueError as ve:
+        print(f"Error: {ve}")
+    except IOError:
+        print("Error: An I/O error occurred while reading the file.")
+
+filename = input("Enter the CSV filename: ")
+read_employee_data(filename)
