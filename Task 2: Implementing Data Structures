@@ -2,14 +2,52 @@ students = {}
 
 def add_student(name, score):
     students[name] = score
+    print(f"Student {name} added successfully with score {score}.")
 
-def get_score(name):
-    return students.get(name, "Student not found")
+def get_student_score(name):
+    if name in students:
+        print(f"{name}'s score: {students[name]}")
+    else:
+        print(f"Student {name} not found!")
 
 def delete_student(name):
-    students.pop(name, None)
+    if name in students:
+        del students[name]
+        print(f"Student {name} removed successfully.")
+    else:
+        print(f"Student {name} not found!")
 
-# Example usage
-add_student("Alice", 90)
-print(get_score("Alice"))  # Output: 90
-delete_student("Alice")
+def show_all_students():
+    if students:
+        print("\nStudent Scores:")
+        for name, score in students.items():
+            print(f"{name}: {score}")
+    else:
+        print("\nNo students in the record.")
+
+while True:
+    print("\n1. Add Student\n2. Get Student Score\n3. Delete Student\n4. Show All Students\n5. Exit")
+    choice = input("Enter your choice: ")
+
+    if choice == "1":
+        name = input("Enter student name: ")
+        score = float(input(f"Enter {name}'s score: "))
+        add_student(name, score)
+    
+    elif choice == "2":
+        name = input("Enter student name: ")
+        get_student_score(name)
+
+    elif choice == "3":
+        name = input("Enter student name to delete: ")
+        delete_student(name)
+
+    elif choice == "4":
+        show_all_students()
+
+    elif choice == "5":
+        print("Exiting program. Goodbye!")
+        break
+    
+    else:
+        print("Invalid choice! Please try again.")
